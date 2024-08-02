@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import axios from "axios";
 
 // AJAX로 가져온 JSON 데이터 다루기
 const Test4 = () => {
@@ -9,6 +10,7 @@ const Test4 = () => {
 
     // fetch
     // useEffect
+    
     useEffect(() => {
         fetch("/test4", 
             {
@@ -32,6 +34,32 @@ const Test4 = () => {
             }
         )
     }, []);
+    
+    
+    // axios 버전
+    /*
+    useEffect(() => {
+        axios.get("/test4")
+        .then((res) => {
+            if(!res.ok){
+                throw new Error('');
+            }
+            return res.json();
+            //return res.text();
+        })
+        .then(
+            (result) => {
+                setLoaded(true);
+                setDatas(result);
+            },
+            (error) => {
+                setLoaded(true);
+                setError(error);
+            }
+        )
+    }, []);
+    */
+
 
     // 
     if(error){
@@ -50,7 +78,7 @@ const Test4 = () => {
         return(
             <ul>
                 {datas.map((data) => (
-                    <li>
+                    <li key={data.no}>
                         {data.no} {data.name} {data.pay}
                     </li>
                 ))}
